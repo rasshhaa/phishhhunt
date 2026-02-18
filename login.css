@@ -1,0 +1,142 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Login and Home Containers */
+.login-container, .home-container, .success-message {
+    background-color: #111;
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    color: #00ffcc;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h1 span {
+    color: #ff00ff;
+}
+
+h2 {
+    color: #00ffcc;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #fff;
+}
+
+/* Form Styles */
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #00ffcc;
+    border-radius: 5px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #00ffcc;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff00ff;
+    color: #000;
+}
+
+#logout-btn {
+    background-color: #ff00ff;
+    margin-top: 20px;
+}
+
+#logout-btn:hover {
+    background-color: #00ffcc;
+}
+
+/* Game Options */
+.game-options {
+    margin-top: 20px;
+}
+
+.game-options ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.game-options ul li {
+    margin: 15px 0;
+}
+
+.game-options ul li a {
+    text-decoration: none;
+    color: #00ffcc;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.game-options ul li a:hover {
+    color: #ff00ff;
+    text-decoration: underline;
+}
+
+/* Success Message */
+.success-message {
+    display: none;
+}
+
+.success-message h1 {
+    color: #00ffcc;
+}
+
+.success-message p {
+    color: #fff;
+}
+
+#continue-btn {
+    background-color: #ff00ff;
+    margin-top: 20px;
+}
+
+#continue-btn:hover {
+    background-color: #00ffcc;
+}

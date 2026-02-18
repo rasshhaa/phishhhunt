@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5: IoT Nightmare</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🚨 HACK INTO THE AI SYSTEM!</h1>
+        <p>Find the correct **override code** before the AI police robots **attack civilians.**</p>
+        <img src="/EscapeTheHacker/assets/ai-dogs.png" alt="AI Police Dogs" class="glitch-img">
+        <p>Which command will **shut down the hacker’s rogue AI?**</p>
+        <button onclick="checkCommand('shutdown.exe')">🛑 shutdown.exe</button>
+        <button onclick="checkCommand('disable-ai.sh')">💾 disable-ai.sh</button>
+        <button onclick="checkCommand('kill-process')">⚠️ kill-process</button>
+        <p id="timer">Time left: <span id="time">20</span> seconds</p>
+    </div>
+
+    <audio id="drone-sound" src="/EscapeTheHacker/assets/hacker-drone.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/smart-city-glitch.gif" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script src="script.js"></script>
+</body>
+</html>

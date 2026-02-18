@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Escape: The Data Heist</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            background-color: black;
+            color: #0ff;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 3px solid #0ff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #0ff;
+        }
+
+        .question {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 16px;
+            color: #0ff;
+            background-color: black;
+            border: 2px solid #0ff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0ff;
+            color: black;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        #result, #score {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #explanation {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #0ff;
+            display: none;
+            padding: 10px;
+            border-top: 2px solid #0ff;
+        }
+
+        #timer {
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cyber Escape: The Data Heist</h1>
+    <p>Escape the hacker's lair by solving security puzzles before time runs out!</p>
+    <p><strong>Time Left: <span id="timer">60</span> seconds</strong></p>
+    <p><strong>Score: <span id="score">100</span></strong></p>
+
+    <div class="container">
+        <p class="question" id="question">Loading question...</p>
+        <button class="button" id="option1" onclick="checkAnswer(0)">Option 1</button>
+        <button class="button" id="option2" onclick="checkAnswer(1)">Option 2</button>
+        <button class="button" id="option3" onclick="checkAnswer(2)">Option 3</button>
+        <p id="result"></p>
+        <p id="explanation"></p>
+        <button class="button" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+    </div>
+
+    <script>
+        let questions = [
+            { 
+                question: "Which is the strongest password?", 
+                options: ["password123", "John1995", "P@ssw0rd!&X7"], 
+                answer: 2,
+                explanation: "Strong passwords include uppercase, lowercase, numbers, and special characters. Avoid using names or common words."
+            },
+            { 
+                question: "Which email is likely a phishing attempt?", 
+                options: ["support@paypal.com", "paypa1-security@gmail.com", "noreply@amazon.com"], 
+                answer: 1,
+                explanation: "Phishing emails often use misspelled domains, generic greetings, and urgent messages to trick users."
+            },
+            { 
+                question: "How should sensitive data be stored?", 
+                options: ["Plain text", "Encrypted", "In an email"], 
+                answer: 1,
+                explanation: "Encryption ensures that even if data is stolen, it remains unreadable without the decryption key."
+            },
+            { 
+                question: "Which firewall rule should be applied?", 
+                options: ["Allow all traffic", "Block untrusted IPs", "Disable firewall"], 
+                answer: 1,
+                explanation: "Blocking untrusted IPs prevents malicious connections while allowing safe traffic."
+            },
+            { 
+                question: "What is Two-Factor Authentication (2FA)?", 
+                options: ["A backup password", "A second verification step", "A firewall setting"], 
+                answer: 1,
+                explanation: "2FA adds an extra layer of security by requiring a second factor, like a phone code, after entering a password."
+            },
+            { 
+                question: "What should you do if you receive a suspicious link?", 
+                options: ["Click it to check", "Ignore it", "Verify its legitimacy first"], 
+                answer: 2,
+                explanation: "Always verify links before clicking by checking the sender and hovering over the link to preview the URL."
+            },
+            { 
+                question: "What is the safest way to connect to public Wi-Fi?", 
+                options: ["Use a VPN", "Disable antivirus", "Download more data"], 
+                answer: 0,
+                explanation: "A VPN encrypts your internet traffic, protecting your data from hackers on public networks."
+            },
+            { 
+                question: "Which type of attack tricks users into revealing confidential info?", 
+                options: ["Malware", "Phishing", "DDoS"], 
+                answer: 1,
+                explanation: "Phishing attacks use deceptive emails or websites to steal personal information."
+            },
+            { 
+                question: "What should you do if a website asks for your password via email?", 
+                options: ["Enter it quickly", "Ignore and report it", "Share it with a friend"], 
+                answer: 1,
+                explanation: "Legitimate websites never ask for passwords via email. Always report suspicious requests."
+            },
+            { 
+                question: "Why should you update software regularly?", 
+                options: ["For new features only", "To fix security vulnerabilities", "It’s optional"], 
+                answer: 1,
+                explanation: "Updates patch security holes and protect against new cyber threats."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let timeLeft = 90;
+        let score = 100;
+        let timerInterval;
+
+        function startGame() {
+            document.getElementById("result").innerText = "";
+            loadQuestion();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            document.getElementById("explanation").style.display = "none";
+            document.getElementById("nextBtn").style.display = "none";
+
+            if (currentQuestion >= questions.length) {
+                endGame();
+                return;
+            }
+            let q = questions[currentQuestion];
+            document.getElementById("question").innerText = q.question;
+            document.getElementById("option1").innerText = q.options[0];
+            document.getElementById("option2").innerText = q.options[1];
+            document.getElementById("option3").innerText = q.options[2];
+        }
+
+        function checkAnswer(choice) {
+            if (choice === questions[currentQuestion].answer) {
+                document.getElementById("result").innerText = "Correct!";
+                document.getElementById("explanation").innerText = questions[currentQuestion].explanation;
+                document.getElementById("explanation").style.display = "block";
+                document.getElementById("nextBtn").style.display = "block";
+            } else {
+                document.getElementById("result").innerText = "Incorrect! -10 points!";
+                score -= 10;
+                document.getElementById("score").innerText = score;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            document.querySelector(".container").innerHTML = `<h2>Game Over!</h2><p>Your final score: ${score}</p>`;
+        }
+
+        startGame();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Intruder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🚨 IDENTIFY THE UNKNOWN INTRUDER!</h1>
+        <p>Security footage shows **three individuals.** One of them has no biometric record. **Who is the imposter?**</p>
+        <div class="suspect-container">
+            <img src="/EscapeTheHacker/assets/suspect1.png" class="suspect-img" onclick="checkIdentity('suspect1')">
+            <img src="/EscapeTheHacker/assets/suspect2.png" class="suspect-img" onclick="checkIdentity('suspect2')">
+            <img src="/EscapeTheHacker/assets/blurry-figure.png" class="suspect-img" onclick="checkIdentity('suspect3')">
+        </div>
+        <p id="timer">Time left: <span id="time">15</span> seconds</p>
+    </div>
+
+    <audio id="glitch-sound" src="/EscapeTheHacker/assets/glitch.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/security-footage.gif" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script src="script.js"></script>
+</body>
+</html>

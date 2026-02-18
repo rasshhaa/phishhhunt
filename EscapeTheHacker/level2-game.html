@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypt the System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>💾 DECRYPT THE RANSOMWARE</h1>
+        <p>The hacker has locked the Burj Khalifa’s AI system. !!Enter the correct decryption key before time runs out!!</p>
+        <p id="hint" style="color: cyan; font-style: italic;">
+        Hint: The decryption key is related to the year Sentinel AI was launched. Think of a combination of "CYBERSAFE" and the year.
+        </p>
+        <input type="text" id="decryption-input" placeholder="Enter decryption key...">
+        <button onclick="checkDecryption()">🔓 Unlock</button>
+
+        <p id="timer">Time left: <span id="time">15</span> seconds</p>
+    </div>
+
+    <audio id="jumpscare-sound" src="/EscapeTheHacker/assets/jumpscare.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/hacker-face.png" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script src="script.js"></script>
+</body>
+</html>

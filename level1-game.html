@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1: The Phishing Trap</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>⚠️ IDENTIFY THE PHISHING SITE ⚠️</h1>
+        <p>One of these websites is FAKE. Click the real one before time runs out! ⏳</p>
+
+        <div class="website-options">
+            <button class="website" onclick="checkAnswer(true)"> www.dubai-mall.com</button>
+            <button class="website" onclick="checkAnswer(false)"> www.dubai-mall.shop</button>
+        </div>
+
+        <p id="timer">Time left: <span id="time">10</span> seconds</p>
+    </div>
+
+    <audio id="jumpscare-sound" src="/EscapeTheHacker/assets/jumpscare.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/hacker-face.png" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script src="script.js"></script>
+</body>
+</html>

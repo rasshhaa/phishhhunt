@@ -1,0 +1,253 @@
+/* General Styles */
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Story Container */
+#story-container {
+    width: 80%;
+    max-width: 800px;
+    min-height: 200px;
+    font-size: 1.5em;
+    line-height: 1.6;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+/* Glitch effect */
+.glitch-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.7); /* Red overlay */
+    animation: glitch 0.5s infinite;
+    z-index: 1000;
+    pointer-events: none; /* Ensure clicks pass through */
+}
+
+@keyframes glitch {
+    0% {
+        opacity: 0.8;
+        transform: translateX(0);
+    }
+    20% {
+        opacity: 0.5;
+        transform: translateX(-5px);
+    }
+    40% {
+        opacity: 0.8;
+        transform: translateX(5px);
+    }
+    60% {
+        opacity: 0.5;
+        transform: translateX(-3px);
+    }
+    80% {
+        opacity: 0.8;
+        transform: translateX(3px);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateX(0);
+    }
+}
+/* Glitch Effect */
+.glitch {
+    color: red;
+    font-weight: bold;
+    animation: glitch 0.3s infinite alternate;
+}
+
+@keyframes glitch {
+    0% { transform: translateX(-1px); }
+    50% { transform: translateX(1px); }
+    100% { transform: translateX(-1px); }
+}
+
+/* Warning Text */
+.warning-text {
+    color: red;
+    font-weight: bold;
+    font-size: 1.8em;
+    text-shadow: 0 0 10px red, 0 0 20px red;
+    animation: warning-flicker 0.8s infinite alternate;
+}
+
+@keyframes warning-flicker {
+    0% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+/* Dialogue Text */
+.dialogue {
+    color: cyan;
+    font-weight: bold;
+}
+
+.cyan-text {
+    color: cyan;
+    font-size: 1.3em;
+}
+
+/* Game Container */
+.game-container {
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px #ff0000;
+    background: rgba(0, 0, 0, 0.9);
+    margin-top: 100px;
+}
+
+h1 {
+    color: #ff0000;
+    text-shadow: 0px 0px 10px #ff0000;
+}
+
+/* Buttons */
+button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #cc0000;
+    box-shadow: 0px 0px 10px #ff4444;
+}
+
+/* Website Options */
+.website-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.website {
+    background-color: #222;
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid red;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 300px;
+    margin: auto;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.website:hover {
+    background-color: red;
+    color: black;
+    box-shadow: 0px 0px 10px red;
+}
+
+/* Timer */
+#timer {
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* Warning Images */
+.warning-img {
+    width: 60%;
+    margin: 20px auto;
+    display: block;
+    border: 3px solid red;
+}
+
+/* Input Fields */
+input {
+    padding: 10px;
+    font-size: 18px;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid red;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* Glitch Images */
+.glitch-img {
+    width: 60%;
+    margin: 20px auto;
+    display: block;
+    border: 3px solid red;
+    animation: glitch 0.5s infinite alternate;
+}
+
+@keyframes glitch {
+    0% { filter: blur(2px) hue-rotate(0deg); }
+    100% { filter: blur(5px) hue-rotate(30deg); }
+}
+
+/* Video Styling */
+video {
+    display: block;
+    margin: 10px auto;
+    border: 2px solid white;
+    box-shadow: 0px 0px 10px red;
+}
+
+/* Phone Ringing Effect */
+.phone-ring {
+    font-size: 20px;
+    text-align: center;
+    color: red;
+    animation: blink 0.8s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+/* Suspect Container */
+.suspect-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.suspect-img {
+    width: 150px;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.suspect-img:hover {
+    transform: scale(1.1);
+    filter: grayscale(50%);
+}

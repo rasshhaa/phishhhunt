@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phish Hunt - Cyber Darths</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #00ff99;
+      text-shadow: 0 0 15px #00ff99, 0 0 30px #0077ff;
+      white-space: nowrap;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+
+    .start-button {
+      margin-top: 40px;
+      padding: 10px 25px;
+      font-size: 1.2em;
+      background: transparent;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: 0.3s;
+      z-index: 10;
+      position: relative;
+    }
+
+    .start-button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    /* Floating Data Points - Adjusted Positions */
+    .data-point {
+      position: absolute;
+      font-size: 0.85em;
+      color: rgba(0, 255, 153, 0.7);
+      text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    }
+
+    #data1 { top: 10%; left: 5%; }  /* Top left */
+    #data2 { top: 20%; left: 10%; } /* Slightly lower on left */
+    #data3 { bottom: 10%; left: 7%; } /* Bottom left */
+    #data4 { top: 12%; right: 6%; }  /* Top right */
+    #data5 { bottom: 8%; right: 8%; } /* Bottom right */
+
+    footer {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      padding: 10px 0;
+      background: transparent;
+      color: #fff;
+      font-size: 0.9em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="phish-hunt">Phish Hunt</h1>
+  <h2 id="cyber-darths">010010 110101 011001</h2>
+
+  <button class="start-button" onclick="startGame()">Start</button>
+
+  <!-- Floating Data Points in Specific Positions -->
+  <div class="data-point" id="data1">90% of breaches start with phishing.</div>
+  <div class="data-point" id="data2">1 in 5 users fall for phishing.</div>
+  <div class="data-point" id="data3">$10.5T cybercrime cost by 2025.</div>
+  <div class="data-point" id="data4">22% of attacks use malicious links.</div>
+  <div class="data-point" id="data5">Phishing emails cause 63% of breaches.</div>
+  <div class="data-point" id="data6">Over 4 million phishing sites are detected monthly.</div>
+
+
+  <script>
+    function startGame() {
+      window.location.href = "loginhunter.html";
+    }
+
+    // Phish Hunt Glitch Effect
+    const originalText = "Phish Hunt";
+    const phishElement = document.getElementById('phish-hunt');
+    let index = 0;
+
+    function glitchText() {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let randomText = '';
+
+      for (let i = 0; i < originalText.length; i++) {
+        randomText += letters.charAt(Math.floor(Math.random() * letters.length));
+      }
+
+      phishElement.textContent = randomText;
+
+      if (index < originalText.length) {
+        index++;
+        setTimeout(glitchText, 100);
+      } else {
+        phishElement.textContent = originalText;
+      }
+    }
+
+    glitchText();
+
+    // Binary to Text Effect
+    const cyberElement = document.getElementById("cyber-darths");
+    const finalText = "Created by Cyber Darths";
+    let binaryIndex = 0;
+
+    function binaryEffect() {
+      let binaryText = '';
+      for (let i = 0; i < finalText.length; i++) {
+        binaryText += Math.random() > 0.5 ? "1" : "0";
+      }
+      cyberElement.textContent = binaryText;
+
+      if (binaryIndex < finalText.length) {
+        binaryIndex++;
+        setTimeout(binaryEffect, 80);
+      } else {
+        cyberElement.textContent = finalText;
+      }
+    }
+
+    binaryEffect();
+
+  </script>
+
+  <footer>
+    <p>© 2025 Phish Hunt</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Lockdown Escape Room</title>
+    <style>
+        :root {
+            --hacker-green: #00ff00;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--hacker-green);
+            font-family: 'Consolas', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #001100, #000);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .title {
+            font-size: 4em;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 20px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px var(--hacker-green);
+            animation: glitch 3s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            to { transform: translate(0) }
+        }
+
+        .typewriter {
+            border-right: 2px solid var(--hacker-green);
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.2em;
+            margin: 20px 0;
+            width: 0;
+            animation: typing 3.5s steps(40, end) forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--hacker-green); }
+        }
+
+        .start-button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            background: #002200;
+            border: 2px solid var(--hacker-green);
+            color: var(--hacker-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        .start-button:hover {
+            background: var(--hacker-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--hacker-green);
+        }
+
+        .escape-room {
+            max-width: 1000px;
+            margin: 20px auto;
+            border: 3px solid var(--hacker-green);
+            padding: 20px;
+            display: none;
+        }
+
+        .terminal {
+            background: #001100;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--hacker-green);
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            color: #ff0000;
+            display: none;
+        }
+
+        .score {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button.option {
+            background: #002200;
+            border: 1px solid var(--hacker-green);
+            color: var(--hacker-green);
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        button.option:hover {
+            background: var(--hacker-green);
+            color: #000;
+        }
+
+        #success {
+            display: none;
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-screen" id="splash">
+        <div class="title">CYBER LOCKDOWN</div>
+        <div class="typewriter">[ Initializing security protocol... ]</div>
+        <div class="typewriter" style="animation-delay: 1.5s">[ System breach detected! ]</div>
+        <div class="typewriter" style="animation-delay: 3s">[ Engage countermeasures ]</div>
+        <button class="start-button" onclick="startGame()">INITIATE SYSTEM SCAN</button>
+    </div>
+
+    <div class="timer">TIME LEFT: <span id="time">15:00</span></div>
+    <div class="score">SCORE: <span id="score">100</span></div>
+    
+    <div class="escape-room" id="game-container">
+        <!-- Rooms will be dynamically generated here -->
+    </div>
+
+    <div id="success">
+        <div class="final-score">
+            <h2>🌟 SYSTEM SECURED 🌟</h2>
+            <p>Final Score: <span id="final-score">100</span></p>
+            <p>Rank: <span id="rank">Calculating...</span></p>
+            <button onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        let currentRoom = 0;
+        let timeLeft = 900;
+        let score = 100;
+        let timer;
+
+        const rooms = [
+            { question: "Which of these emails is most likely phishing?", answers: [
+                { text: "From: PayPal - Unusual Login Attempt", correct: false },
+                { text: "From: PayPaI (capital I) - Account Suspension", correct: true },
+                { text: "From: Amazon - Order Confirmation", correct: false },
+                { text: "From: Your Bank - Monthly Statement", correct: false }
+            ]},
+            { question: "Which password is most secure?", answers: [
+                { text: "Summer2023!", correct: false },
+                { text: "P@ssw0rd123", correct: false },
+                { text: "Tr0ub4dour&3agle", correct: true },
+                { text: "123456789", correct: false }
+            ]},
+            { question: "Which log entry shows suspicious activity?", answers: [
+                { text: "192.168.1.5 - GET /style.css", correct: false },
+                { text: "185.63.90.47 - POST /wp-admin.php", correct: true },
+                { text: "10.0.0.3 - GET /images/logo.png", correct: false },
+                { text: "172.16.0.5 - GET /api/time", correct: false }
+            ]},
+            { question: "What is the best way to secure a wireless network?", answers: [
+                { text: "Use WEP encryption", correct: false },
+                { text: "Use WPA3 encryption", correct: true },
+                { text: "Disable the SSID broadcast", correct: false },
+                { text: "Use a strong admin password", correct: false }
+            ]},
+            { question: "Which of these is a common sign of a malware infection?", answers: [
+                { text: "Increased system performance", correct: false },
+                { text: "Unexpected pop-up windows", correct: true },
+                { text: "Faster internet speed", correct: false },
+                { text: "More available storage space", correct: false }
+            ]},
+            { question: "What should you do if you receive a suspicious email?", answers: [
+                { text: "Click on the links to verify", correct: false },
+                { text: "Forward it to your friends", correct: false },
+                { text: "Delete it immediately", correct: true },
+                { text: "Reply to the sender", correct: false }
+            ]},
+            { question: "Which of these is a strong indicator of a phishing website?", answers: [
+                { text: "HTTPS in the URL", correct: false },
+                { text: "Misspelled domain name", correct: true },
+                { text: "Professional design", correct: false },
+                { text: "Presence of a privacy policy", correct: false }
+            ]},
+            { question: "What is the primary purpose of a VPN?", answers: [
+                { text: "Increase internet speed", correct: false },
+                { text: "Encrypt internet traffic", correct: true },
+                { text: "Block all ads", correct: false },
+                { text: "Improve gaming performance", correct: false }
+            ]},
+            { question: "Which of these is a common social engineering tactic?", answers: [
+                { text: "Sending a phishing email", correct: true },
+                { text: "Installing a firewall", correct: false },
+                { text: "Updating software", correct: false },
+                { text: "Using strong passwords", correct: false }
+            ]},
+            { question: "What is the best practice for handling sensitive data?", answers: [
+                { text: "Store it on a public cloud", correct: false },
+                { text: "Encrypt it and limit access", correct: true },
+                { text: "Share it via email", correct: false },
+                { text: "Print it and store in a drawer", correct: false }
+            ]}
+        ];
+
+        function startGame() {
+            document.getElementById('splash').style.display = 'none';
+            document.querySelector('.timer').style.display = 'block';
+            document.querySelector('.score').style.display = 'block';
+            document.getElementById('game-container').style.display = 'block';
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('time').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    gameOver();
+                }
+            }, 1000);
+
+            loadRoom(currentRoom);
+        }
+
+        function loadRoom(index) {
+            if (index >= rooms.length) {
+                gameWon();
+                return;
+            }
+
+            const room = rooms[index];
+            const gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = `
+                <div class="terminal">
+                    <h2>ROOM ${index + 1}</h2>
+                    <p>${room.question}</p>
+                    <div class="options-grid">
+                        ${room.answers.map(answer => `
+                            <button class="option" onclick="checkAnswer(${answer.correct})">
+                                > ${answer.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                currentRoom++;
+                if (currentRoom < rooms.length) {
+                    loadRoom(currentRoom);
+                } else {
+                    gameWon();
+                }
+            } else {
+                score = Math.max(0, score - 10);
+                document.getElementById('score').textContent = score;
+                alert("Intrusion detected! -10 points");
+            }
+        }
+
+        function gameWon() {
+            clearInterval(timer);
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('rank').textContent = getRank(score);
+        }
+
+        function gameOver() {
+            clearInterval(timer);
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('success').innerHTML = `
+                <div class="final-score">
+                    <h2>🚨 SYSTEM BREACHED 🚨</h2>
+                    <p>Final Score: ${score}</p>
+                    <button onclick="location.reload()">Try Again</button>
+                </div>
+            `;
+            document.getElementById('success').style.display = 'block';
+        }
+
+        function getRank(score) {
+            if (score >= 90) return "Elite Hacker 🏆";
+            if (score >= 70) return "Security Expert 🔒";
+            if (score >= 50) return "Junior Analyst 🔍";
+            return "Rookie 🐣";
+        }
+    </script>
+</body>
+</html>

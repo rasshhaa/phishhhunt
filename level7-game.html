@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Battle: Defeat Sentinel AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>⚠️ FINAL BATTLE: SHUT DOWN SENTINEL AI ⚠️</h1>
+        <p>**Sentinel AI is fully activated. It is rewriting itself to be unstoppable.**</p>
+
+        <p>💻 **You must inject a shutdown command before it locks you out.**</p>
+
+        <p>⌨️ Type the correct **override code** before the timer runs out!</p>
+        <p id="hint" style=" color: cyan; font-style: italic;">
+        Hint: The shutdown code is a combination of "SENTINEL" and "OVERRIDE" in leet speak (e.g., 3 for E, 1 for L).
+        </p>
+        <input type="text" id="shutdown-code" placeholder="Enter Shutdown Code">
+        <button onclick="submitCode()">🔴 Inject Command</button>
+
+        <p id="timer">Time left: <span id="time">20</span> seconds</p>
+        <p id="feedback"></p>
+    </div>
+
+    <button id="next-button">Next</button>
+    <script>
+        document.getElementById("next-button").addEventListener("click", function() {
+            window.location.href = "game-complete.html";  // Redirect to the game page
+        });
+    </script>
+</body>
+</html>

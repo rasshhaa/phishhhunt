@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4: The Dark Web Auction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🕵️‍♂️ STOP THE DARK WEB AUCTION</h1>
+        <p>Find the hacker’s **hidden kill switch** before the auction timer hits 0!</p>
+        <img src="/EscapeTheHacker/assets/stolen-id.png" alt="Stolen Identity Warning" class="glitch-img">
+        <p>Which database file contains the **backdoor shutdown command?**</p>
+        <button onclick="checkFile('data-1')">📂 data-1.txt</button>
+        <button onclick="checkFile('data-2')">📂 data-2.txt</button>
+        <button onclick="checkFile('dark-3')">dark-3.exe</button>
+        <p id="timer">Time left: <span id="time">15</span> seconds</p>
+    </div>
+
+    <audio id="jumpscare-sound" src="/EscapeTheHacker/assets/jumpscare.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/hacker-auction.png" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script src="script.js"></script>
+</body>
+</html>

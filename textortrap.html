@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text or Trap: Cybercrime Chronicles</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --hacker-green: #00ff00;
+            --dark-bg: #0a0a0a;
+            --retro-purple: #8a2be2;
+            --retro-pink: #ff00ff;
+            --glitch-blue: #00ffff;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--hacker-green);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Homepage Styles */
+        .homepage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-bg), #001100);
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .homepage h1 {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--hacker-green), 0 0 20px var(--hacker-green);
+            animation: glow 2s infinite alternate, glitch 3s infinite;
+            position: relative;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px var(--hacker-green), 0 0 20px var(--hacker-green); }
+            100% { text-shadow: 0 0 20px var(--hacker-green), 0 0 40px var(--hacker-green); }
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-5px, 5px); }
+            50% { transform: translate(5px, -5px); }
+            75% { transform: translate(-5px, -5px); }
+        }
+
+        .homepage p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            color: #a8b2d1;
+            text-align: center;
+            padding: 0 20px;
+            font-weight: 300;
+            animation: fadeInText 3s ease-in-out;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .homepage button {
+            background: transparent;
+            color: var(--hacker-green);
+            border: 2px solid var(--hacker-green);
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .homepage button:hover {
+            background: var(--hacker-green);
+            color: var(--dark-bg);
+            animation: none;
+        }
+
+        .homepage button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--glitch-blue), transparent);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+            opacity: 0.5;
+        }
+
+        .homepage button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--hacker-green);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--retro-purple);
+            max-width: 800px;
+            margin: 20px auto;
+            display: none; /* Initially hidden */
+        }
+
+        .terminal h2 {
+            color: var(--retro-pink);
+            text-shadow: 0 0 10px var(--retro-pink);
+        }
+
+        .terminal p {
+            line-height: 1.5;
+        }
+
+        input[type="text"] {
+            background: #002200;
+            border: 1px solid var(--hacker-green);
+            color: var(--hacker-green);
+            padding: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background: #003300;
+            border: 1px solid var(--hacker-green);
+            color: var(--hacker-green);
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+
+        button:hover {
+            background: var(--hacker-green);
+            color: #000;
+        }
+
+        /* Hidden Class */
+        .hidden {
+            display: none;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #002200;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--retro-pink);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Phone Call Interface */
+        .phone-call {
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .call-bubble {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .call-bubble.scammer {
+            background: #e0e0e0;
+            margin-left: auto;
+        }
+
+        .call-bubble.grandma {
+            background: #0099ff;
+            color: #fff;
+        }
+
+        /* Email Interface */
+        .email-interface {
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .email-header {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .email-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .email-body {
+            margin-top: 10px;
+        }
+
+        /* Instagram Chat Interface */
+        .instagram-chat {
+            background: #fafafa;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .chat-message.sender {
+            background: #e0e0e0;
+            margin-left: auto;
+        }
+
+        .chat-message.receiver {
+            background: #0099ff;
+            color: #fff;
+        }
+
+        /* Typing Animation */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end);
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <div class="homepage" id="homepage">
+        <h1>Text or Trap</h1>
+        <p>Welcome to <strong>Cybercrime Chronicles</strong>, where you'll dive into the world of phishing scams, social engineering, and cybercrime. Test your skills, spot the scams, and become a cybersecurity hero!</p>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Terminal Window -->
+    <div class="terminal" id="terminal">
+        <!-- Level 1: Grandma’s Credit Card Scam -->
+        <div id="level1">
+            <h2>🔹 LEVEL 1: Grandma’s Credit Card Scam 👵💳</h2>
+            <div class="phone-call">
+                <div class="call-bubble scammer typing-effect">
+                    <p>Hello, this is your bank. Your credit card has been compromised. Please verify your details to secure your account.</p>
+                </div>
+                <div class="call-bubble grandma typing-effect">
+                    <p>Oh no! What should I do?</p>
+                </div>
+                <button onclick="answerCall()">Answer</button>
+                <button onclick="hangUp()">Hang Up</button>
+                <button onclick="skipLevel()">Skip</button>
+            </div>
+            <p><strong>Challenge:</strong> Identify red flags in the conversation and decide the correct action.</p>
+            <input type="text" id="level1-answer" placeholder="What's suspicious about the call?">
+            <button onclick="checkLevel1()">Submit</button>
+        </div>
+
+        <!-- Level 2: Fake CEO Email -->
+        <div id="level2" class="hidden">
+            <h2>🔹 LEVEL 2: The Fake CEO Email 🏢📧</h2>
+            <div class="email-interface">
+                <div class="email-header">
+                    <h3>From: CEO &lt;ceo@yourcompany.com&gt;</h3>
+                    <p>Subject: URGENT: Wire Transfer Needed</p>
+                </div>
+                <div class="email-body">
+                    <p>Hi Team,</p>
+                    <p>We need to process an urgent wire transfer for a confidential deal. Please transfer $50,000 to the following account:</p>
+                    <p>Account Number: 123456789</p>
+                    <p>Routing Number: 987654321</p>
+                    <p>This is time-sensitive. Do not discuss this with anyone.</p>
+                    <p>Best,<br>CEO</p>
+                </div>
+            </div>
+            <p><strong>Challenge:</strong> Analyze the email header, domain spoofing, and urgency tactics.</p>
+            <input type="text" id="level2-answer" placeholder="What's wrong with this email?">
+            <button onclick="checkLevel2()">Submit</button>
+            <button onclick="skipLevel()">Skip</button>
+        </div>
+
+        <!-- Level 3: Influencer Giveaway Scam -->
+        <div id="level3" class="hidden">
+            <h2>🔹 LEVEL 3: The Influencer Giveaway Scam 📲🎁</h2>
+            <div class="instagram-chat">
+                <div class="chat-message receiver typing-effect">
+                    <p>🎉 YOU WON! Click here to claim your prize: <a href="http://fake-insta.com/claim">http://fake-insta.com/claim</a></p>
+                </div>
+                <div class="chat-message sender typing-effect">
+                    <p>Is this real?</p>
+                </div>
+                <div class="chat-message receiver typing-effect">
+                    <p>Yes! Just click the link and follow the instructions to claim your prize!</p>
+                </div>
+            </div>
+            <p><strong>Challenge:</strong> Investigate the URL, check for HTTPS, and analyze redirects.</p>
+            <input type="text" id="level3-answer" placeholder="Is this link safe?">
+            <button onclick="checkLevel3()">Submit</button>
+            <button onclick="skipLevel()">Skip</button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Final Score -->
+        <div id="score-container" class="hidden">
+            <p>Your final score: <span id="final-score">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+        let score = 0;
+        const progressBar = document.getElementById('progress');
+
+        function startGame() {
+            document.getElementById('homepage').style.display = 'none';
+            document.getElementById('terminal').style.display = 'block';
+        }
+
+        function answerCall() {
+            alert("You answered the call. What will you do next?");
+        }
+
+        function hangUp() {
+            alert("You hung up. Good decision!");
+            score++;
+            advanceLevel();
+        }
+
+        function checkLevel1() {
+            const answer = document.getElementById('level1-answer').value.toLowerCase();
+            if (answer.includes("bank never calls") || answer.includes("urgent request")) {
+                alert("Correct! You saved Grandma's credit card!");
+                score++;
+                advanceLevel();
+            } else {
+                alert("Look for urgency and unsolicited requests!");
+            }
+        }
+
+        function checkLevel2() {
+            const answer = document.getElementById('level2-answer').value.toLowerCase();
+            if (answer.includes("spoofed domain") || answer.includes("urgent request")) {
+                alert("Correct! You prevented a BEC scam!");
+                score++;
+                advanceLevel();
+            } else {
+                alert("Check the sender's domain and urgency tactics!");
+            }
+        }
+
+        function checkLevel3() {
+            const answer = document.getElementById('level3-answer').value.toLowerCase();
+            if (answer.includes("http://") || answer.includes("fake link")) {
+                alert("Correct! You avoided a phishing scam!");
+                score++;
+                advanceLevel();
+            } else {
+                alert("Always check for HTTPS and suspicious URLs!");
+            }
+        }
+
+        function advanceLevel() {
+            document.getElementById('level' + currentLevel).classList.add('hidden');
+            currentLevel++;
+            progressBar.style.width = `${(currentLevel - 1) * 25}%`;
+
+            if (currentLevel <= 3) {
+                document.getElementById('level' + currentLevel).classList.remove('hidden');
+            } else {
+                document.getElementById('score-container').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
+            }
+        }
+
+        function skipLevel() {
+            alert("You skipped this level. Moving to the next!");
+            advanceLevel();
+        }
+    </script>
+</body>
+</html>

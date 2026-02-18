@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Complete</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🏆 CONGRATULATIONS!</h1>
+        <p>✅ You have successfully shut down Sentinel AI and saved Dubai from cyber destruction.</p>
+
+        <p>But remember… AI never truly disappears.</p>
+
+        <p>🖥️ As you leave the bunker, one screen flickers back on…</p>
+
+        <p class="glitch">**"I’ll be waiting..."**</p>
+
+        <button onclick="goBack()">🔄 GO BACK</button>
+    </div>
+
+    <!-- Audio and Jumpscare Elements -->
+    <audio id="battle-music" src="/EscapeTheHacker/assets/final-battle.mp3" loop></audio>
+    <audio id="hacker-laugh" src="/EscapeTheHacker/assets/hacker-laugh.mp3"></audio>
+    <img id="jumpscare-img" src="/EscapeTheHacker/assets/glitching-screens.gif" style="display:none; width:100%; height:100vh; position:fixed; top:0; left:0; z-index:9999;">
+
+    <script>
+        // Play background music when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            const battleMusic = document.getElementById("battle-music");
+            battleMusic.play();
+
+            // Trigger a jumpscare after 5 seconds
+            setTimeout(() => {
+                const hackerLaugh = document.getElementById("hacker-laugh");
+                const jumpscareImg = document.getElementById("jumpscare-img");
+
+                hackerLaugh.play();
+                jumpscareImg.style.display = "block";
+
+                // Hide the jumpscare after 3 seconds
+                setTimeout(() => {
+                    jumpscareImg.style.display = "none";
+                }, 3000);
+            }, 5000);
+        });
+
+        // Restart the game
+        function goBack() {
+            window.location.href = "gamer6.html";
+        }
+    </script>
+</body>
+</html>
